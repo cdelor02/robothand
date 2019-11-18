@@ -1,5 +1,5 @@
-# seniorthesis
-Repo for senior thesis project, 2019-2020
+# Senior Thesis: Department of Computer Science, Tufts University
+Repo for my senior thesis project, 2019-2020 academic year
 
 
 
