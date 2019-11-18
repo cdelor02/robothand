@@ -14,3 +14,7 @@ Next:
 3. Connect the Arduino with a USB cable
 4. While still in the catkin workspace directory, in a new terminal window run `rosrun rosserial_python serial_node.py /dev/ttyACM0`
 5. In a new terminal window, publish a uint16 to the servo topic by writing `rostopic pub servo std_msgs/UInt16  <angle>`, where `<angle>` is a value between 0-180
+
+Publishing ROS messages manually via the command line looks like this:
+
+`pub <topic-name> <topic-type> [data...]`
