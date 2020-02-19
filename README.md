@@ -18,3 +18,7 @@ Next:
 Publishing ROS messages manually via the command line looks like this:
 
 `pub <topic-name> <topic-type> [data...]`
+
+# Useful library for controlling multiple servos (with servo driver board)
+
+https://www.brainy-bits.com/control-multiple-servos-with-joystick/
