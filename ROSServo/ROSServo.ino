@@ -23,6 +23,7 @@
 #include <Servo.h> 
 #include <ros.h>
 #include <std_msgs/UInt16.h>
+#include <sensor_msgs/JointState.h>
 //the next step is to publish a joint state message, with (dummy) values
 
 ros::NodeHandle  nh;
