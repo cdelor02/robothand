@@ -6,7 +6,7 @@ Repo for my senior thesis project, 2019-2020 academic year
 ## Publishing a Uint16 servo position to an Arduino 
 [(from this ROS wiki tutorial)](http://wiki.ros.org/rosserial_arduino/Tutorials/Servo%20Controller "ROS Rosserial tutorial")
 
-Before doing any of this work, you must run `sudo chmod atrw /dev/ttyACM0`, which gives read/write access to the serial port to which the Arduino is connected.
+Before doing any of this work, you must run `sudo chmod a+rw /dev/ttyACM0`, which gives read/write access to the serial port to which the Arduino is connected.
 
 Next:
 1. Change directory into your workspace and run `catkin_make`
