@@ -24,3 +24,5 @@ Publishing ROS messages manually via the command line looks like this:
 [Library for controlling multiple servos (with servo driver board)](https://www.brainy-bits.com/control-multiple-servos-with-joystick/)
 
 [Installing the Arduino IDE on Ubuntu](https://ubuntu.com/tutorials/install-the-arduino-ide#1-overview):
+
+[Wiring for the PC9685 servo driver board for Arduino](https://learn.adafruit.com/16-channel-pwm-servo-driver/hooking-it-up)
