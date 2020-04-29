@@ -1,4 +1,4 @@
-/* TEST CASE OF THIS LIBRARY FOR MY SENIOR PROJECT Spring 2020
+/* TEST CASE OF THIS LIBRARY WITH ROS CONNECTION FOR MY SENIOR PROJECT Spring 2020
 10/06/16 version 0.1: Original version
 
 
@@ -49,6 +49,35 @@ REASON WHATSOEVER.
 /* Create an instance of the library */
 HCPCA9685 HCPCA9685(I2CAdd);
 
+/* declarations for ROS component*/
+#if (ARDUINO >= 100)
+ #include <Arduino.h>
+#else
+ #include <WProgram.h>
+#endif
+
+#include <ros.h>
+#include <std_msgs/UInt16.h>
+#include <std_msgs/UInt16MultiArray.h>
+#include <sensor_msgs/JointState.h>
+
+ros::NodeHandle nh;
+
+void servo_cb(const std_msgs::UInt16MultiArray& cmd_msg) {
+  int pos0 = 0, pos1 = 0, pos2 = 0, pos3 = 0;
+  pos0 = map(cmd_msg.data[0], 0, 180, 10, 450);
+  pos1 = map(cmd_msg.data[1], 0, 180, 10, 450);
+  pos2 = map(cmd_msg.data[2], 0, 180, 10, 450);
+  pos3 = map(cmd_msg.data[3], 0, 180, 10, 450);
+
+  HCPCA9685.Servo(0, pos0);
+  HCPCA9685.Servo(1, pos1);
+  HCPCA9685.Servo(2, pos2);
+  HCPCA9685.Servo(3, pos3);
+
+}
+
+ros::Subscriber<std_msgs::UInt16MultiArray> sub("servo", servo_cb);
 
 void setup() 
 {
@@ -58,32 +87,27 @@ void setup()
   /* Wake the device up */
   HCPCA9685.Sleep(false);
   Serial.begin(9600);
+
+  nh.initNode();
+  nh.subscribe(sub);
+
+  nh.getHardware()->setBaud(9600);
+  nh.initNode();
 }
 
 
-void loop() 
-{
-  unsigned int Pos;
-  //Pos = 1;
+void loop() {
+  //unsigned int Pos;
 
-  //HCPCA9685.Servo(0, Pos);
-  //HCPCA9685.Servo(1, Pos);
+  // range for servos looks like its 10-450, with this library
+  // to allow users to give an angle, want a mapping of ang |--> pos vals (of this library)
 
-  
-    // HCPCA9685.Servo(0, i);
+    
+  nh.spinOnce();
 
-    /*
-    HCPCA9685.Servo(0, 1);
-    HCPCA9685.Servo(1, 178);    
-    delay(8000);
-    HCPCA9685.Servo(0, 178);
-    HCPCA9685.Servo(1, 1);
-    delay(8000);
-    */
 
-    // range for servos looks like its 10-450, with this library
 
-    set_all(450);
+  //set_all(450, 4);
 
   /* Sweep the servo back and forth from its minimum to maximum position.
      If your servo is hitting its end stops then you  should adjust the 
@@ -121,10 +145,9 @@ void loop()
   
 }
 
-void set_all(int pos) {
-    HCPCA9685.Servo(0, pos);
-    HCPCA9685.Servo(1, pos);
-    HCPCA9685.Servo(2, pos);  
-    HCPCA9685.Servo(3, pos); 
-  
+void set_all(int pos, int num_servos) {
+  int i = 0;
+    for(i = 0; i < num_servos; i++) {
+      HCPCA9685.Servo(i, pos);
+    }
 }
