@@ -1,10 +1,4 @@
-/* FILE:    HCPCA9685_Servo_Example
-   DATE:    10/06/16
-   VERSION: 0.1
-   AUTHOR:  Andrew Davies
-
-   Sketch created by Hobby Components Ltd (HOBBYCOMPONENTS.COM)
-   
+/* TEST CASE OF THIS LIBRARY FOR MY SENIOR PROJECT Spring 2020
 10/06/16 version 0.1: Original version
 
 
@@ -63,42 +57,74 @@ void setup()
 
   /* Wake the device up */
   HCPCA9685.Sleep(false);
+  Serial.begin(9600);
 }
 
 
 void loop() 
 {
   unsigned int Pos;
-  Pos = 1;
+  //Pos = 1;
 
   //HCPCA9685.Servo(0, Pos);
   //HCPCA9685.Servo(1, Pos);
 
-  for(int i = 2; i < 32; i++) {
-    HCPCA9685.Servo(0, i);
-    HCPCA9685.Servo(1, i);
-    delay(1000);
-  }
   
+    // HCPCA9685.Servo(0, i);
+
+    /*
+    HCPCA9685.Servo(0, 1);
+    HCPCA9685.Servo(1, 178);    
+    delay(8000);
+    HCPCA9685.Servo(0, 178);
+    HCPCA9685.Servo(1, 1);
+    delay(8000);
+    */
+
+    // range for servos looks like its 10-450, with this library
+
+    set_all(450);
 
   /* Sweep the servo back and forth from its minimum to maximum position.
      If your servo is hitting its end stops then you  should adjust the 
      values so that the servo can sweep though its full range without hitting
      the end stops. You can adjust the min & max positions by altering 
      the trim values in the libraries HCPCA9685.h file*/
-  /*for(Pos = 10; Pos < 100; Pos++)
-  {
     /* This function sets the servos position. It takes two parameters, 
      * the first is the servo to control, and the second is the servo 
      * position. */ 
-      /*
-    HCPCA9685.Servo(0, Pos);
-    delay(10);
-  }*/
-  /*
-  for(Pos = 100; Pos >= 10; Pos--)
+
+   /*
+   for(Pos = 10; Pos < 450; Pos++)
   {
+    
+    //Serial.print("Pos: ");
+    //Serial.println(Pos);
     HCPCA9685.Servo(0, Pos);
+    HCPCA9685.Servo(1, Pos);
+    HCPCA9685.Servo(2, Pos);  
+    HCPCA9685.Servo(3, Pos);      
     delay(10);
-  }*/
+  }
+  
+  for(Pos = 450; Pos >= 10; Pos--)
+  {
+    //Serial.print("Pos: ");
+    //Serial.println(Pos);
+    HCPCA9685.Servo(0, Pos);
+    HCPCA9685.Servo(1, Pos);
+    HCPCA9685.Servo(2, Pos);  
+    HCPCA9685.Servo(3, Pos); 
+    delay(10);
+  }
+  */
+  
+}
+
+void set_all(int pos) {
+    HCPCA9685.Servo(0, pos);
+    HCPCA9685.Servo(1, pos);
+    HCPCA9685.Servo(2, pos);  
+    HCPCA9685.Servo(3, pos); 
+  
 }
