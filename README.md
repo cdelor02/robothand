@@ -19,6 +19,8 @@ Publishing ROS messages manually via the command line looks like this:
 
 `pub <topic-name> <topic-type> [data...]`
 
+**To note: the `rosserial_python` node must be run with Python2.X (it will not work with Python3)
+
 # Useful things: 
 
 [Library for controlling multiple servos (with servo driver board)](https://www.brainy-bits.com/control-multiple-servos-with-joystick/)
