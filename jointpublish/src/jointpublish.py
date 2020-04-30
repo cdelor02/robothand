@@ -9,6 +9,10 @@ from std_msgs.msg import Int16MultiArray #was UInt16
 #port = "dev/ttyACM0"
 #baud = 9600
 
+#this is what it'll look like to use a custom message:
+#from std_msgs.msg import String
+#msg = String()
+
 def talker():
     pub = rospy.Publisher('servo', UInt16MultiArray, queue_size=10)
     rospy.init_node('talker', anonymous=True)
