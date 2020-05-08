@@ -33,7 +33,7 @@ Repo for my directed study project, 2019-2020 academic year
 6. While still in the catkin workspace directory, in a new terminal window run `rosrun rosserial_python serial_node.py _baud:=<your_baud_rate> _port:=/dev/ttyACM0`
 7. Open `joint_publish_test.py` and ensure that the values the fingers are being set to are your desired values, being sure to save them.
 8. When ready, ensure the Arduino is connected to the computer via USB, as well as to the servo driver (as described in the diagram), and the driver is receiving power and is connected to all the servos. 
-9. In a new terminal window, run `python /path/to/this/package/seniorthesis/jointpublish/scripts/joint_publish_test.py`, and watch the hand move to your configuration!
+9. In a new terminal window, run `python /path/to/this/package/seniorthesis/jointpublish/scripts/joint_publish_test.py`, and watch the hand move to your configuration! If the script does not run, it is possible it needs executable permissions, so type `chmod +x joint_publish_test.py` into the terminal and try again.
 **NOTE: it is possible to send angles to the hand that your particular servos are not able to reach. Configure the code to match the limits of your servos.
 
 **OTHER NOTE: the `rosserial_python` node must be run with Python2.X (it will not work with Python3)
