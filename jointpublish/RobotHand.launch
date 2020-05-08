@@ -1,0 +1,4 @@
+<launch>
+	<!-- args: Serial port of arduino -->
+	<node name="RobotHandNode" pkg="jointpublish" type="joint_publish_test.py" args="/dev/ttyACM0"/>
+</launch>
