@@ -23,7 +23,8 @@ Repo for my directed study project, 2019-2020 academic year
 *Note for Ubuntu users* : Before doing any of this work, you must run `sudo chmod a+rw /dev/ttyACM0`, which gives read/write access to the serial port to which the Arduino is connected. If there are issues, consult [this Arduino forum](https://forum.arduino.cc/index.php?topic=495039.0).
 
 ### Printing the CAD parts:
-The pointer, middle, ring, and pinky fingers are all constructed from 
+The pointer, middle, ring, and pinky fingers are all constructed with one print each of fingertip.stl, fingermiddle.stl, and fingerbase.stl. The thumb is composed of just two segments, fingertip.stl and fingerbase.stl. The palm is made from one piece, palm.stl. 
+If the fingers have difficulty printing in large batches, try printing at most 3 segments at once on the print bed. 
 
 
 ### Installation and running the test publisher with the hand subscriber:
