@@ -19,11 +19,11 @@ from rosserial_arduino.msg import Adc
 #baud = 9600
 
 joint_msg = Adc() #using predefined message, as custom message is not working
-joint_msg.adc0 = finger1
-joint_msg.adc1 = finger2
-joint_msg.adc2 = finger3
-joint_msg.adc3 = finger4
-joint_msg.adc4 = finger5
+joint_msg.adc0 = 30
+joint_msg.adc1 = 30
+joint_msg.adc2 = 30
+joint_msg.adc3 = 30
+joint_msg.adc4 = 30
 joint_msg.adc5 = 0 #no 6th finger, so this part of the message is not used
 
 
