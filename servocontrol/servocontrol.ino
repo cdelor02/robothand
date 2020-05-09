@@ -71,6 +71,7 @@ ros::NodeHandle nh;
 
 void servo_cb(const rosserial_arduino::Adc& cmd_msg) {
   int pos0 = 0, pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0, pos5 = 0;
+
   pos0 = map(cmd_msg.adc0, 0, 180, 10, 450);
   pos1 = map(cmd_msg.adc1, 0, 180, 10, 450);
   pos2 = map(cmd_msg.adc2, 0, 180, 10, 450);
@@ -84,10 +85,27 @@ void servo_cb(const rosserial_arduino::Adc& cmd_msg) {
   HCPCA9685.Servo(3, pos3);
   HCPCA9685.Servo(4, pos4);
   delay(500);
+
+  pubjointangles(pos1, pos2, pos3, pos4, pos5);
 }
+
+void pubjointangles(int p0, int p1, int p2, int p3, int p4) {
+  rosserial_arduino::Adc joints;
+  joint_msg.adc0 = p0;  
+  joint_msg.adc1 = p1;
+  joint_msg.adc2 = p2;
+  joint_msg.adc3 = p3;
+  joint_msg.adc4 = p4;
+  joint_msg.adc5 = 0; //dummy value, not necessary
+  nh.publish( &joints );
+}
+
 
 // Create subscriber to the Adc message on the /servo topic
 ros::Subscriber<rosserial_arduino::Adc> sub("servo", servo_cb);
+
+// Create publisher to publish the current joint state of the hand
+ros::Publisher<rosserial_arduino::Adc> pub("currjoints", &joint_msg);
 
 void setup() 
 {
@@ -104,11 +122,13 @@ void setup()
   //set bit transmission rate to match that of the rosserial_python node (serial_node.py)
   nh.getHardware()->setBaud(9600);
   nh.initNode();
+
+
+  nh.advertise(pub);
 }
 
 
 void loop() {
-    
   nh.spinOnce();
   
 }
