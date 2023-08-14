@@ -1,0 +1,2 @@
+set(jointpublish_MESSAGE_FILES "/home/charlie/catkin_ws/src/seniorthesis/jointpublish/msg/Hand.msg")
+set(jointpublish_SERVICE_FILES "")

@@ -1,0 +1,93 @@
+
+*** WHAT NEEDS TO BE DONE ***
+- get hand receiving finger angles and setting the fingers
+- refine/document hand CAD file(s)
+- work on parts of the paper: start with Introduction, then Background & Significance, and Related Work (BY SUNDAY!!)
+	- actually, could work on Research Design & Methods in the meantime as well
+- refine, fix bugs, ask Jivko for help
+- work on Background & Significance and Related Work, and start Results 
+- fix bugs/get help, finish up B & S and Related Work, dive deeper into Results
+- more fixing, finish up Results and start Conclusions
+- finish Conclusions, Acknowledgements, and make sure the References section is good!
+		- MAKE AN APPT WITH A WRITING TUTOR, GET MY PAPER LOOKED AT
+
+
+
+-- had a bug where it wasn't recognizing the line `from error import *`, solution was to do `rm -rf build`, and do build all the packages with `catkin_make` again: https://get-help.robotigniteacademy.com/t/exercise-3-3-importerror-no-module-named-my-custom-srv-msg-pkg-srv/127/2
+
+
+
+
+**What I did, Monday 27/04/2020**
+
+- make sure the Arduino editor, under Tools > Programmer is set to "Arduino as ISP"
+
+- make sure the Arduino code has the following lines in the `setup()` function:
+`
+  Serial.begin(115200);
+  nh.getHardware()->setBaud(115200);
+  nh.initNode();
+`
+--> in place of the large number, you can put whatever baud rate you like (currently using 9600)
+
+- upload, upload again
+
+- check board is connected and visible with `ls /dev/ttyACM0`
+
+- confirm you have r/w permission with `sudo chmod a+rw /dev/ttyACM0`
+
+- run `roscore`
+
+- to start the serial node, run `rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=115200` in a new terminal window, where the baud is set to whatever it was set to in the Arduino code
+
+- in a new terminal window, run `rostopic pub servo std_msgs/UInt16 <n>`, where `<n>` is some number 0-180, the desired angle
+
+
+
+***also figured out my publisher, `/seniorthesis/jointpublish/src/jointpublish.py`***
+- the file should work, so instead of doing the `rostopic pub` thing instead run `python seniorthesis/jointpublish/src/jointpublish.py`
+--> unfortunately this is in Python2.7, so :(
+
+- the way of getting the UInt16 is with the line `from std_msgs.msg import UInt16`, which I use in declaring my Publisher like so: `pub = rospy.Publisher('servo', UInt16, queue_size=10)`
+
+- ALSO, it's possible this is important, but you may need to run `chmod +x file_name.py`, to make it executable
+
+### links used:
+http://wiki.ros.org/msg
+
+https://answers.ros.org/question/267666/differential-drive-getting-valueerror-data_class-type-is-not-a-message-data-class/
+
+http://wiki.ros.org/rosserial_python
+
+http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment
+
+https://answers.ros.org/question/210875/arduino-rosserial-unable-to-sync-with-device/
+
+http://docs.ros.org/diamondback/api/rosserial_python/html/SerialClient_8py_source.html
+
+https://stackoverflow.com/questions/48292089/arduino-rosserial-unable-to-sync-with-device
+
+http://wiki.ros.org/rosserial_arduino/Tutorials/Arduino%20IDE%20Setup#A.28RECOMMENDED.29_Installing_Binaries_on_the_ROS_workstation
+
+https://answers.ros.org/question/235620/how-to-install-rosserial-for-arduino-on-ros-kinetic/
+
+formatting MultiArray message correctly: https://answers.ros.org/question/257913/how-to-publish-int16multiarray-from-command-line/
+
+http://question3342.rssing.com/browser.php?indx=48260544&item=10
+
+
+
+
+
+I think to send a MultiArray is has to be something like this:
+`
+rostopic pub servo std_msgs/UInt16MultiArray "{layout: {dim: [{label: "height", size: 1, stride: 8}, {label: "width", size: 4, stride: 8}], data_offset: 0}, data: [30, 30, 30, 30]}"
+`
+
+
+
+
+
+### Attempt to use command line args with python script:
+
+`_ , finger1, finger2, finger3, finger4, finger5 = sys.argv`

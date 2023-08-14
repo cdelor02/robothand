@@ -1,0 +1,2 @@
+beginner_tutorials:seniorthesis/jointpublish
+-DCATKIN_DEVEL_PREFIX=/home/charlie/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/charlie/catkin_ws/install -G Unix Makefiles
